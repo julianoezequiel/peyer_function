@@ -29,11 +29,9 @@ exports.scheduledFunction = functions.pubsub
 
 async function buscarSite () {
   
-  const result = await request.get(url)
+  const result = await fetch(url)
   const $ = cheerio.load(result,{
-    xml: {
-      normalizeWhitespace: true,
-    },
+    decodeEntities: false
   })
   $('body > div > table > tbody > tr ').each((index, element) => {
     console.log('Index ' + index + ' - ' +  $(element).text())
