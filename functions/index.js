@@ -4,6 +4,7 @@ const functions = require('firebase-functions')
 
 const request = require('request-promise')
 const cheerio = require('cheerio')
+const iconv = require('iconv-lite')
 
 // The Firebase Admin SDK to access Firestore.
 const admin = require('firebase-admin')
@@ -29,12 +30,14 @@ exports.scheduledFunction = functions.pubsub
 
 async function buscarSite () {
   
-  const result = await fetch(url)
+  var encoding = 'iso-8859-1';
+
+  const result = await request.get(url)
   const $ = cheerio.load(result,{
     decodeEntities: false
   })
-  $('body > div > table > tbody > tr ').each((index, element) => {
-    console.log('Index ' + index + ' - ' +  $(element).text())
+  $('body > div > table > tbody > tr > td').each((index, element) => {
+    console.log('Index ' + index + ' - ' + iconv.decode($(element).text(),encoding))
   })
   console.log("bbb")
   // console.log($('body > div > table > tbody > tr > td').text())
