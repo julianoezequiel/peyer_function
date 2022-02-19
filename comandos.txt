@@ -1,0 +1,6 @@
+video sobre push notification https://www.youtube.com/watch?v=V1TbKVFd0-I
+
+firebase functions:shell
+
+
+yarn add react-native-notifree
